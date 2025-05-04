@@ -71,7 +71,7 @@ const SignUp = () => {
     <div className="h-screen lg:h-screen bg-gray-100">
       <div className="">
         <h2 className="text-xl md:text-2xl lg:text-3xl text-center text-green-900 font-extrabold py-6">
-          Welcome To Mess Tracker
+          Welcome To Multi-Vander App
         </h2>
       </div>
       <div className="text-gray-900 bg-gray-100 flex justify-center ">
@@ -148,7 +148,7 @@ const SignUp = () => {
                         <circle cx="8.5" cy="7" r="4" />
                         <path d="M20 8v6M23 11h-6" />
                       </svg>
-                      <span className="ml-2">Sign In</span>
+                      <span className="ml-2">Registration</span>
                     </button>
 
                     <p className="mt-4 text-base md:text-lg font-medium text-green-700 ">

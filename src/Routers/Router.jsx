@@ -3,6 +3,7 @@ import Home from "../pages/Home/Home";
 
 import Login from "../pages/LogIn/LogIn";
 import SignUp from "../pages/SignUp/SignUp";
+import UploadProduct from "../pages/UploadProduct/UploadProduct";
 
 export const router = createBrowserRouter([
   {
@@ -16,5 +17,9 @@ export const router = createBrowserRouter([
   {
     path: "/signUp",
     element: <SignUp />,
+  },
+  {
+    path: "/upload-product",
+    element: <UploadProduct />,
   },
 ]);
