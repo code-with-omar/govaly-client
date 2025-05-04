@@ -49,9 +49,9 @@ const SignUp = () => {
             };
             console.log(userInfo);
             navigate("/login");
-            // axiosPublic.post("/users", userInfo).then((res) => {
-            //   navigate("/login");
-            // });
+            axiosPublic.post("/users", userInfo).then((res) => {
+              navigate("/login");
+            });
           })
           .catch((error) => {
             console.log(error);

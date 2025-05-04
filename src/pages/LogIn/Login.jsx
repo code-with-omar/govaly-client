@@ -13,7 +13,7 @@ const Login = () => {
     const password = form.password.value;
     signIn(email, password).then((result) => {
       const user = result.user;
-      navigate("/upload-product");
+      // navigate("/upload-product");
     });
     form.reset();
   };
