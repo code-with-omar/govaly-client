@@ -3,20 +3,32 @@ import LoginInImg from "../../assets/signin-image.jpg";
 import { FaUserTie } from "react-icons/fa";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProviders";
-const Login = () => {
-  const { signIn } = useContext(AuthContext);
+
+const SignIn = () => {
+  const { signIn } = useContext(AuthContext); // Ensure AuthContext provides this
   const navigate = useNavigate();
+
   const handleSignIn = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    signIn(email, password).then((result) => {
-      const user = result.user;
-      navigate("/");
-    });
-    form.reset();
+
+    // Ensure that signIn is working correctly and returns a Promise
+    signIn(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log("Signed in user:", user);
+        navigate("/"); // Navigate to home or dashboard after successful login
+      })
+      .catch((error) => {
+        console.error("Login error:", error);
+        alert("Error logging in. Please check your credentials.");
+      });
+
+    form.reset(); // Reset form after submission
   };
+
   return (
     <div className="h-screen lg:h-screen bg-gray-100">
       <div className="">
@@ -25,10 +37,10 @@ const Login = () => {
         </h2>
       </div>
       <div className="text-gray-900 flex justify-center bg-gray-100">
-        <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1 ">
-          <div className="lg:w-1/2 xl:w-5/12  sm:p-8">
-            <div className="w-16 h-16 bg-[#612828] rounded-full grid place-content-center mx-auto ">
-              <FaUserTie className="w-10 h-10 text-white"></FaUserTie>
+        <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
+          <div className="lg:w-1/2 xl:w-5/12 sm:p-8">
+            <div className="w-16 h-16 bg-[#612828] rounded-full grid place-content-center mx-auto">
+              <FaUserTie className="w-10 h-10 text-white" />
             </div>
             <h2 className="text-xl md:text-2xl lg:text-3xl text-center text-green-900 font-extrabold py-6">
               Please Login First
@@ -41,16 +53,18 @@ const Login = () => {
               <div className="w-full flex-1">
                 <div className="mx-auto max-w-xs">
                   <input
-                    name="email" // Add this
+                    name="email"
                     className="w-full px-8 py-4 mt-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
                     type="email"
                     placeholder="Email"
+                    required
                   />
                   <input
-                    name="password" // Add this
+                    name="password"
                     className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                     type="password"
                     placeholder="Password"
+                    required
                   />
                   <button className="mt-5 tracking-wide font-semibold bg-green-400 text-white-500 w-full py-4 rounded-lg hover:bg-green-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                     <svg
@@ -78,7 +92,7 @@ const Login = () => {
                   </p>
 
                   <p className="mt-6 text-xs text-gray-600 text-center">
-                    I agree to abide by Mess Tracker Terms of Service Privacy
+                    I agree to abide by GoValy App Terms of Service Privacy
                     Policy
                   </p>
                 </div>
@@ -99,4 +113,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignIn;

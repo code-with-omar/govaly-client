@@ -48,9 +48,17 @@ const SignUp = () => {
               photoURL: image,
             };
             console.log(userInfo);
-            navigate("/login");
+            // navigate("/login");
             axiosPublic.post("/users", userInfo).then((res) => {
-              navigate("/login");
+              Swal.fire({
+                icon: "success",
+                title: "Success!",
+                text: "User has been successfully registered.",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "OK",
+              }).then(() => {
+                navigate("/");
+              });
             });
           })
           .catch((error) => {

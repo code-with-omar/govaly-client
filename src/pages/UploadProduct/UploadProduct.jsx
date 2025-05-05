@@ -9,20 +9,54 @@ const UploadProduct = () => {
   const [fileName, setFileName] = useState("");
   const fileInputRef = useRef();
   const navigate = useNavigate();
+
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
     if (!file) return;
+
+    // Ensure only .csv files are accepted
+    const fileExtension = file.name.split(".").pop().toLowerCase();
+    if (fileExtension !== "csv") {
+      Swal.fire({
+        title: "Invalid File Type",
+        text: "Please upload a .csv file.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      fileInputRef.current.value = null;
+      setFileName("");
+      setCsvData([]);
+      return;
+    }
+
     setFileName(file.name);
 
     Papa.parse(file, {
       header: true,
       skipEmptyLines: true,
       complete: (results) => {
+        if (results.data.length === 0) {
+          Swal.fire({
+            title: "Empty CSV",
+            text: "The selected CSV file has no data.",
+            icon: "warning",
+            confirmButtonText: "OK",
+          });
+          setCsvData([]);
+          return;
+        }
+
         setCsvData(results.data);
         console.log("Parsed CSV Data:", results.data);
       },
       error: (error) => {
         console.error("Error parsing CSV:", error);
+        Swal.fire({
+          title: "Parse Error",
+          text: "Failed to parse the CSV file.",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
       },
     });
   };
@@ -36,9 +70,29 @@ const UploadProduct = () => {
   };
 
   const handleUpload = async () => {
+    if (!fileInputRef.current.files.length) {
+      Swal.fire({
+        title: "No File Selected",
+        text: "Please select a CSV file before uploading.",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+    if (!csvData.length) {
+      Swal.fire({
+        title: "No Data Found",
+        text: "CSV file appears empty or malformed.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
     try {
-      const response = await axios.post(
-        "http://localhost:5000/products",
+      await axios.post(
+        "https://govaly.vercel.app/products",
         csvData,
         {
           headers: {
@@ -54,7 +108,6 @@ const UploadProduct = () => {
         confirmButtonText: "OK",
       });
 
-      // Clear form after successful upload
       setCsvData([]);
       setFileName("");
       navigate("/");
@@ -63,12 +116,17 @@ const UploadProduct = () => {
       }
     } catch (error) {
       console.error("Upload failed:", error);
-      alert("Upload failed. See console for details.");
+      Swal.fire({
+        title: "Upload Failed",
+        text: "Something went wrong during upload.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     }
   };
 
   return (
-    <div className="h-screen lg:h-screen bg-gray-100 mx-auto  p-6  rounded-xl shadow-md">
+    <div className="h-screen bg-gray-100 p-6 rounded-xl shadow-md">
       <div className="max-w-3xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-md">
         <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">
           Upload Product

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "./../assets/logo.png";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProviders";
@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
   const handleLogOut = () => {
     logOut()
       .then(() => {})
@@ -33,7 +34,7 @@ const Header = () => {
               confirmButtonText: "Go to Login",
             }).then((result) => {
               if (result.isConfirmed) {
-                window.location.href = "/login"; // Navigate manually
+                navigate("/login");
               }
             });
           }
