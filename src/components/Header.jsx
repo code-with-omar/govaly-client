@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import logo from "./../assets/logo.png";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProviders";
+import Swal from "sweetalert2";
+
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
   const handleLogOut = () => {
@@ -18,11 +20,27 @@ const Header = () => {
         <Link to="/">Home</Link>
       </li>
 
-      <li className="text-white font-bold lg:text-lg md:text-base text-sm uppercase hover:text-yellow-500">
-        <Link to="/upload-product">Upload Product</Link>
+      <li
+        className="text-white font-bold lg:text-lg md:text-base text-sm uppercase hover:text-yellow-500"
+        onClick={(e) => {
+          if (!user) {
+            e.preventDefault(); // Prevent the default link behavior
+            Swal.fire({
+              icon: "warning",
+              title: "Login Required",
+              text: "Please log in to upload a product.",
+              confirmButtonColor: "#3085d6",
+              confirmButtonText: "Go to Login",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.href = "/login"; // Navigate manually
+              }
+            });
+          }
+        }}
+      >
+        <Link to={user ? "/upload-product" : "#"}>Upload Product</Link>
       </li>
-
-      
 
       {user ? (
         <>
@@ -34,13 +52,11 @@ const Header = () => {
             <Link>Log Out</Link>
           </li>
           <li className="text-white font-bold lg:text-lg md:text-base text-sm uppercase hover:text-yellow-500">
-            <Link to="/dashboard/cart">
-              <div className="avatar relative ">
-                <div className="w-14 rounded-full ">
-                  <img className="z-0" src={user?.photoURL} />
-                </div>
+            <div className="avatar relative ">
+              <div className="w-14 rounded-full ">
+                <img className="z-0" src={user?.photoURL} />
               </div>
-            </Link>
+            </div>
           </li>
         </>
       ) : (
@@ -52,7 +68,7 @@ const Header = () => {
   );
 
   return (
-    <div className="navbar bg-base-100 py-1 lg:py-4 md:py-2 fixed z-10 bg-opacity-40">
+    <div className="navbar bg-[#18182096] py-1 lg:py-4 md:py-2 fixed z-10 ">
       <div className="navbar-start  lg:w-1/6 md:w-1/6">
         <a className="uppercase ml-6 text-2x cursor-pointer w-24 h-24 lg:w-16 lg:h-16 md:w-24 md:h-24 ">
           <img src={logo} alt="" />

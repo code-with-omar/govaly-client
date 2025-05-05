@@ -13,7 +13,7 @@ const Login = () => {
     const password = form.password.value;
     signIn(email, password).then((result) => {
       const user = result.user;
-      // navigate("/upload-product");
+      navigate("/");
     });
     form.reset();
   };
@@ -21,7 +21,7 @@ const Login = () => {
     <div className="h-screen lg:h-screen bg-gray-100">
       <div className="">
         <h2 className="text-xl md:text-2xl lg:text-3xl text-center text-green-900 font-extrabold py-6">
-          Welcome To Multi-Vander App
+          Welcome To GoValy App
         </h2>
       </div>
       <div className="text-gray-900 flex justify-center bg-gray-100">

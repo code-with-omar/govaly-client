@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import Papa from "papaparse";
 import axios from "axios";
+import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 const UploadProduct = () => {
@@ -46,7 +47,12 @@ const UploadProduct = () => {
         }
       );
 
-      alert("Upload successful!");
+      Swal.fire({
+        title: "Success!",
+        text: "Products uploaded successfully.",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
 
       // Clear form after successful upload
       setCsvData([]);

@@ -71,7 +71,7 @@ const SignUp = () => {
     <div className="h-screen lg:h-screen bg-gray-100">
       <div className="">
         <h2 className="text-xl md:text-2xl lg:text-3xl text-center text-green-900 font-extrabold py-6">
-          Welcome To Multi-Vander App
+          Welcome To GoValy App
         </h2>
       </div>
       <div className="text-gray-900 bg-gray-100 flex justify-center ">
