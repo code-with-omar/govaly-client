@@ -11,7 +11,7 @@ git clone https://github.com/code-with-omar/govaly-client.git
 ### 2.Navigate into the Project Directory
 
 ```bash
-cd your-repo-name
+cd govaly-client
 ```
 
 ### 3. Install Dependencies
