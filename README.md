@@ -26,7 +26,7 @@ npm install
 npm run dev
 ```
 
-### 5.  Create a `.env.local` File
+### 5. Create a `.env.local` File
 
 - Add the following environment variables to the `.env.local` file:
 
@@ -34,3 +34,5 @@ npm run dev
   VITE_upload_preset=omar-faruk-65142
   VITE_cloud_name=docor6dpu
   ```
+
+## Or follow the live link: https://multi-vander.vercel.app/
