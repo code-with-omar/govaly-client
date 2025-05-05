@@ -1,4 +1,4 @@
-const Menu = ({ item }) => {
+const Product = ({ item }) => {
   const { _id, name, image, price, details } = item;
 
   return (
@@ -30,4 +30,4 @@ const Menu = ({ item }) => {
   );
 };
 
-export default Menu;
+export default Product;
